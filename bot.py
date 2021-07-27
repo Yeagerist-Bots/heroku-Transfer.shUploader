@@ -24,10 +24,10 @@ BUTTONS = [
 
 START_MSG = "**Hii {mention}, I'm a transfer.sh Uploader Bot\n\nSend any file or direct download link to upload and get the transfer.sh download link \n\n🤖 Bot Made by [Achu Biju](https://t.me/AmiFutami)**" 
 
-@Bot.on(events.NewMessage(incoming=True, pattern="/start", func = lambda e: e.is_private))
+@bot.on(events.NewMessage(incoming=True, pattern="/start", func = lambda e: e.is_private))
 async def start(event):
     """Send a message when the command /start is issued."""
-    new = await Bot(GetFullUserRequest(event.sender_id))
+    new = await bot(GetFullUserRequest(event.sender_id))
     check = await check_user(event.sender_id)
     if not is_added(event.sender_id):
         add_user(event.sender_id)

@@ -1,3 +1,5 @@
+from . import *
+
 def is_added(id):  # Take int or str with numbers only , Returns Boolean
     if not str(id).isdigit():
         return False

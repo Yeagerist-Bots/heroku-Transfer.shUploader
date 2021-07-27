@@ -1,39 +1,32 @@
 {
-
   "name": "Heroku Transfer.sh Uploader",
-
-  "description": "Telegram bot to upload files to transfer.sh remotely Also Host on Heroku Eassyly",
-
+  "description": "Telegram bot to upload files to transfer.sh remotely Also Host on Heroku Easily"
   "keywords": ["uploader","python"],
-
-  "repository": "",
-
-  "env": {
-
-    "BOT_TOKEN": {
-
-      "description": "Your bot token, as a string.",
-
-      "value": ""
-
-    },
-
-    "API_ID": {
-
-      "description": "Get this value from https://my.telegram.org",
-
-      "value": ""
-
-    },
-
-    "API_HASH": {
-
-      "description": "Get this value from https://my.telegram.org",
-
-      "value": ""
-
-    }
-
-  }
-
+"repository": "", 
+"env": {
+  "BOT_TOKEN": {
+    "description": "Your bot token, as a string.",
+    "value": ""
+  },
+  "API_ID": {
+    "description": "Get this value from https://my.telegram.org",
+    "value": ""
+  },
+  "API_HASH": {
+    "description": "Get this value from https://my.telegram.org",
+    "value": ""
+  }, 
+  "CHANNEL": {
+    "description": "Channel link/@username for force join, leave for disabling force join. The bot must be admin in that channel.",
+    "value": ""
+  },
+  "REDIS_URI": {
+    "description": "Redis Database URL, get it from redislabs.com",
+    "value": ""
+  },
+  "REDIS_PASSWORD": {
+    "description": "Redis Database Password, get it from redislabs.com",
+    "value": ""
+  } 
+}
 }

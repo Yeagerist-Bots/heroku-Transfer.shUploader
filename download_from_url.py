@@ -3,7 +3,9 @@ import os
 import time
 from telethon import Button, custom, events
 import math
-
+import requests
+from telethon.errors.rpcerrorlist import UserNotParticipantError
+from telethon.tl.functions.channels import GetParticipantRequest
 
 def get_size(size):
     units = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB"]
@@ -36,6 +38,16 @@ async def download_file(url, file_name, message, start_time, bot):
         await download_coroutine(session, url, file_name, message, start_time, bot)
     return file_name
 
+async def check_user(id):
+    if CHANNEL is None:     # incase no join check is needed
+        return True
+    ok = True
+    try:
+        await Bot(GetParticipantRequest(channel=CHANNEL, participant=id))
+        ok = True
+    except UserNotParticipantError:
+        ok = False
+    return ok
 
 async def download_coroutine(session, url, file_name, event, start, bot):
 

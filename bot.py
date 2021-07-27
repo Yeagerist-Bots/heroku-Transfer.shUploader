@@ -15,24 +15,32 @@ download_path = "Downloads/"
 
 bot = TelegramClient('Uploader bot', api_id, api_hash).start(bot_token=bot_token)
 
+BUTTONS = [
+  [Button.url("📢 Bot Updates", url="https://t.me/AsmSafone"), 
+   Button.url("👥 Support", url="https://t.me/Safothebot")], 
+  [Button.url("🤖 Developer", url="https://t.me/AmiFutami"), 
+   Button.url("👨🏻‍💻 Source Code", url="https://github.com/Achu2234/heroku-Transfer.shUploader")]]
 
-@bot.on(events.NewMessage(pattern='/start'))
+START_MSG = "**Hii {mention}, I'm a transfer.sh Uploader Bot\n\nSend any file or direct download link to upload and get the transfer.sh download link \n\n🤖 Bot Made by [Achu Biju](https://t.me/AmiFutami)**" 
+
+@Bot.on(events.NewMessage(incoming=True, pattern="/start", func = lambda e: e.is_private))
 async def start(event):
     """Send a message when the command /start is issued."""
-    dict_ = {
-            "Channel":"https://t.me/AsmSafone",
-            "Support":"https://t.me/safothebot",
-            "Dev":"https://t.me/AmiFutami",
-            "Source code":"https://github.com/Achu2234/heroku-Transfer.shUploader"}
-    buttons = [[Button.url(k, v)] for k,v in dict_.items()]
-
-    await event.respond('Hi!\nMy Name Is Transfer Uploader Bot Sent any file or direct download link to upload and get the transfer.sh download link Bot Made by @AmiFutami', buttons=buttons)
-    raise events.StopPropagation
+    new = await Bot(GetFullUserRequest(event.sender_id))
+    check = await check_user(event.sender_id)
+    if not is_added(event.sender_id):
+        add_user(event.sender_id)
+    if check is True:
+        await event.reply(START_MSG.format(mention=new.user.first_name),
+                        buttons=BUTTONS)
+    else:
+        await event.reply("**{} You need to join my channel to use me!**".format(new.user.first_name), 
+                          buttons=[Button.url("📢 Join My Updates Channel", url="https://t.me/AsmSafone")])
 
 @bot.on(events.NewMessage)
 async def echo(update):
     """Echo the user message."""
-    msg = await update.respond("Processing...")
+    msg = await update.respond("**Processing...**")
     
     try:
         if not os.path.isdir(download_path):
